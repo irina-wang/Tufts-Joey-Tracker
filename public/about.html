@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="bus_logo.png">
+<title>Tufts Rides</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="stylesheet.css">
+
+<style type="text/css">
+.img {display: inline;}
+@media (max-width: 970px) {
+	.img {display: none;}
+}
+.info {margin: 30px 40px;}
+.map {height: auto;}
+a {text-decoration: none; color: black;}
+a:hover {color: #a6a6a6;}
+
+	
+/**, *:before, *:after {
+  box-sizing: inherit;
+}
+h3{
+    box-sizing: border-box;
+    height: 40px;
+    font-size: 22px;
+}
+.row{
+    width: 98%;    
+/*    padding:1%;*/
+/*}
+.column {
+  display: block;
+  float: left;
+  width: 18%;
+  padding:1%;
+  margin-bottom: 16px;
+  
+}
+
+
+.card {
+	border:1px solid black;
+  
+}
+
+
+.container {
+  padding: 16px 16px;
+  margin: auto;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+  margin: auto;
+}
+
+.title {
+  box-sizing: border-box;
+  height: 60px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: grey;
+}
+
+.emails{
+    box-sizing: border-box;
+    height: 50px;
+    word-break: break-word;
+}
+
+@media screen and (max-width: 850px) {
+  .column {
+    width: 90%;
+    padding-left: 5%;
+    padding-left: 5%;
+  }
+
+  .title {
+      margin: 0;
+      height: 30px;
+  }
+
+  .description {
+      margin: 0;
+      height: 30px;
+  }
+
+}*/
+</style>
+</head>
+
+<body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" 
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" 
+    crossorigin="anonymous">
+</script>
+<script type="text/javascript" src="menu.js"></script>
+
+<div class="header">
+	<a href="index.html"><img class="logo" src="logo.png" alt="logo"></a>
+	<i id="menu-ham" class="fa fa-bars"></i>
+</div>
+
+<div class="menu">
+    <div class="close-menu">
+        <i id="menu-ham" class="fa fa-bars" style="color: black"></i>    
+    </div>
+    <ul>
+        <li><span class="menu-icon"><i class="fas fa-home"></i></span><a href="index.html">Home</a></li>
+        <li><span class="menu-icon"><i class="fas fa-info"></i></span><a href="about.html">About</a></li>
+        <li onclick="showMenu()"><span class="menu-icon"><i class="fas fa-calendar"></i></span><a>Schedule</a></li>
+        <span class="sub-menu">
+            <a href="schedule/mon_wed.html"><li>Davis Square Mon-Wed</li></a>
+            <a href="schedule/thurs.html"><li>Davis Square Thurs</li></a>
+            <a href="schedule/fri.html"><li>Davis Square Fri</li></a>
+            <a href="schedule/sat.html"><li>Davis Square Sat</li></a>
+            <a href="schedule/sun.html"><li>Davis Square Sun</li></a>
+            <a href="schedule/smfa_weekday.html"><li>SMFA Mon-Fri</li></a>
+            <a href="schedule/smfa_sat.html"><li>SMFA Sat</li></a>
+        </span>
+        <li style="border-bottom: 2px solid #ededed;"><span class="menu-icon"><i class="fas fa-id-card"></i></span><a href="contact.html">Contact</a></li>
+    </ul>
+</div>
+
+<div class="map">
+	 <table align="center">
+		<tr>
+			<td>
+				<div class = "info" style="display: inline-block; text-align: left">
+					<h1>About</h1>
+						<p>Tufts Rides is a web app that allows Tufts students to see how far away they are from a certain stop as well as arrival times and schedule.</p>
+					<br/>
+					<p>
+						<h3>Map</h3>
+						The map shows you how far away you are from a stop. 
+						<br/>
+						You can choose which stop you want directions for, and it tells you the time it takes to get there.
+						<br/> 
+						So you can plan what time to leave in order to get to the station on time!
+					</p>
+					<br/>
+					<p>
+						<h3>Arrival time</h3>
+						Below the map, there is a list of stops as well as the times until the next shuttle arrives.
+		 				</br>
+		 				The two times show the closest time to arrival, and the second closest time to arrival.
+						<br/>
+						In this way, instead of looking at the schedule for the next shuttle, you can look right below the map!
+					</p>
+					<br/>
+					<p>
+						<a href="schedule/schedules.html"><h3>Schedule</h3></a>
+						There's also the option to look at the whole schedule if you need to plan ahead.
+					</p>
+					<br/>
+					
+			</td>
+			<td>
+				<div class="img">
+					<img class="dowlingImg" src = "shuttle_img.jpg" style="padding: 50px" width="500em" alt="shuttle">
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<!-- <div style="padding: 0px 30px;">
+						<h3 style="padding: 10px">The Team</h3>
+						<br/>
+						<div class="row">
+						<div class="column">
+						  <div class="card">
+						    <img src="anju.png" alt="Anju" style="width:100%">
+						    <div class="container">
+						      <h3>Anju Ishizaki</h3>
+						      <p class="title">Home page, map/directions &amp; favorites</p>
+						      <p class="emails">anju.ishizaki@tufts.edu</p>
+						    </div>
+						  </div>
+						</div>
+
+						<div class="column">
+						  <div class="card">
+						    <img src="cindy.jpg" alt="Cindy" style="width:100%">
+						    <div class="container">
+						      <h3>Cindy Siu</h3>
+						      <p class="title">Home page, design/layout &amp; backend/frontend</p>
+						      <p class="emails">cindy.siu@tufts.edu</p>
+						      </p>
+						    </div>
+						  </div>
+						</div>
+
+						<div class="column">
+						  <div class="card">
+						    <img src="irina.jpg" alt="Irina" style="width:100%">
+						    <div class="container">
+						      <h3>Irina Wang</h3>
+						      <p class="title">Home page, map/directions &amp; favorites</p>
+						      <p class="emails">irina.wang@tufts.edu</p>
+						    </div>
+						  </div>
+						</div>
+
+						<div class="column">
+						  <div class="card">
+						    <img src="mio.jpg" alt="Mio" style="width:100%">
+						    <div class="container">
+						      <h3>Mio Shimizu</h3>
+						      <p class="title">About, Schedule &amp; Contact</p>
+						      <p class="emails">mio.shimizu@tufts.edu</p>
+
+						    </div>
+						  </div>
+						</div>
+
+						<div class="column">
+						  <div class="card">
+						    <img src="rujen.jpg" alt="Rujen" style="width:100%">
+						    <div class="container">
+						      <h3>Rujen Amatya</h3>
+						      <p class="title"> Database &amp; backend</p>
+						      <p class="emails">rujen.amatya@tufts.edu</p>
+
+						    </div>
+						  </div>
+						</div>
+					      </div>
+		</div> -->
+
+</div>
+
+<div class="footer">
+    <h1>TUFTS RIDES</h1>
+    <p><a href="about.html">About</a> | <a href="schedule/schedules.html">Schedule</a> | <a href="contact.html">Contact</a> 
+    <p>COPYRIGHT TUFTS RIDES 2020, ALL RIGHTS RESERVED</p>
+</div>
+
+</body>
+</html>
