@@ -248,6 +248,9 @@ var stations = [
 ];
 
 
+
+//------------------------- Find closest station ----------------------//
+
 function findshortest(longval, latval) 
 {
   // change after getting database 
