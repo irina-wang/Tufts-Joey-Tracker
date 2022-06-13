@@ -186,7 +186,9 @@ var Olin = new mapboxgl.Marker()
   'icon-allow-overlap': true
   }
   });
+	  
   
+  //------------------------- Display a popup on hover  ----------------------//
   // Create a popup, but don't add it to the map yet.
   var popup = new mapboxgl.Popup({
     closeButton: false,
@@ -196,7 +198,9 @@ var Olin = new mapboxgl.Marker()
   map.on('mouseenter', 'places', function(e) {
   // Change the cursor style as a UI indicator.
   map.getCanvas().style.cursor = 'pointer';
-  
+	  
+	  
+  // Use the first found feature.
   var coordinates = e.features[0].geometry.coordinates.slice();
   var description = e.features[0].properties.description;
   
@@ -215,6 +219,7 @@ var Olin = new mapboxgl.Marker()
       .addTo(map);
   });
   
+  // Remove the popup when hover ends
   map.on('mouseleave', 'places', function() {
       map.getCanvas().style.cursor = '';
       popup.remove();
@@ -224,40 +229,7 @@ var Olin = new mapboxgl.Marker()
 
 //------------------------- Get User Location ----------------------//
 
-var validPos = false;
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(saveLocation);
-        validPos = true;
-    } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
-var myLat = 0.0;
-var myLong = 0.0;
-
-function saveLocation(position) {
-    myLat = position.coords.latitude;
-    myLong = position.coords.longitude;
-    findshortest(myLong, myLat);
-}
-
-// Click the button on map and display user's location
-map.addControl(
-    new mapboxgl.GeolocateControl({
-      positionOptions: {
-      enableHighAccuracy: true
-    },
-      trackUserLocation: true
-    })
-)
-
-//------------------------- Find closest station ----------------------//
-
-// store an json object with stnames, coords, and address, temporary for now
-// retrive from database later
+// store an json object with stnames, coords, and address
 var stations = [
   {
     "stname" : "CC_P_Row",
@@ -290,45 +262,70 @@ var stations = [
     "address" : "Olin Center, 180 Packard Ave, Medford, Massachusetts 02155, United States"
   }
 ];
+	
+
+//------------------------- Find closest station  ----------------------//
+
+var validPos = false;
+var userLat = 0.0;
+var userLong = 0.0;
+
+// Get user's current position
+if ("geolocation" in navigator) { 
+    validPos = true;
+    navigator.geolocation.getCurrentPosition(position => { 
+	// Get user's current position
+        userLat = position.coords.latitude;
+        userLong = position.coords.longitude;
+        shortestPath(userLong, userLat);
+    }); 
+else {  // If user did not give permissions to their location
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
 
 
-function findshortest(longval, latval) 
+function shortestPath(longval, latval) 
 {
+  // Set user location.
   var from = turf.point([longval, latval]);
   var options = {units: 'meters'};
 
-  var indexShortest = 0;
-  var shortestname = "";
+  var nearestIndex = 0;
+  var nearestStop = "";
   var distance = 0;
-  var comparedist = 0;
+  var currMin = 0;
 
-  // compare all the distances and find the shortest
+  // Calculate distance to all stops and find the nearest.
   for (i = 0; i < stations.length; i++) {
       var to = turf.point(stations[i].coords);
       distance = turf.distance(from, to, options);
-      if ( comparedist == 0 ){
-        comparedist = distance;
-      } else if ( distance < comparedist ) {
-        comparedist = distance;
-        shortestname = stations[i].stname;
-        indexShortest = i;
-	      
-        // debugging statements
-          console.log("shortestdist is  " + comparedist + "\n");
-          console.log("shortest to from is " + shortestname + "\n");
+      if ( currMin == 0 ){
+        currMin = distance;
+      } else if ( distance < tempDist ) {
+        currMin = distance;
+        nearestStop = stations[i].stname;
+        nearestIndex = i;
       }
   }
-
-   // debugging statements
-    console.log(longval+ " and " + latval);
-    console.log("index is " + indexShortest);
-    console.log("this is lat" + stations[indexShortest].coords[1]);
-    console.log("this is long" + stations[indexShortest].coords[0]);
   
-  // set map origin and destination
+  // Set map origin and destination
   directions.setOrigin(longval+ "," + latval);
-  directions.setDestination(stations[indexShortest].address);
+  directions.setDestination(stations[nearestIndex].address);
 }
+	
+	
+
+// Click the button on map and display user's location
+map.addControl(
+    new mapboxgl.GeolocateControl({
+      positionOptions: {
+      // When active the map will receive updates to the device's location as it changes.
+      enableHighAccuracy: true
+    },
+      // Draw an arrow next to the location dot to indicate which direction the device is heading.
+      trackUserLocation: true
+    })
+)
 
 </script>
 
