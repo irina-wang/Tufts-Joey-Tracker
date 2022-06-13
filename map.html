@@ -228,7 +228,7 @@ var validPos = false;
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(storeLocation);
+        navigator.geolocation.getCurrentPosition(saveLocation);
         validPos = true;
     } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
@@ -238,7 +238,7 @@ function getLocation() {
 var myLat = 0.0;
 var myLong = 0.0;
 
-function storeLocation(position) {
+function saveLocation(position) {
     myLat = position.coords.latitude;
     myLong = position.coords.longitude;
     findshortest(myLong, myLat);
@@ -294,7 +294,6 @@ var stations = [
 
 function findshortest(longval, latval) 
 {
-  // change after getting database 
   var from = turf.point([longval, latval]);
   var options = {units: 'meters'};
 
@@ -313,19 +312,20 @@ function findshortest(longval, latval)
         comparedist = distance;
         shortestname = stations[i].stname;
         indexShortest = i;
-        // Debugging statements
+	      
+        // debugging statements
           console.log("shortestdist is  " + comparedist + "\n");
           console.log("shortest to from is " + shortestname + "\n");
       }
   }
 
-   // Debugging statements
+   // debugging statements
     console.log(longval+ " and " + latval);
     console.log("index is " + indexShortest);
     console.log("this is lat" + stations[indexShortest].coords[1]);
     console.log("this is long" + stations[indexShortest].coords[0]);
   
-  // Set map origin and destination
+  // set map origin and destination
   directions.setOrigin(longval+ "," + latval);
   directions.setDestination(stations[indexShortest].address);
 }
