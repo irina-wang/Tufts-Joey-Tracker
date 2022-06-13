@@ -264,8 +264,7 @@ var stations = [
 ];
 	
 
-//------------------------- Find closest station  ----------------------//
-
+// ------------------------- Find closest station  ----------------------//
 var validPos = false;
 var userLat = 0.0;
 var userLong = 0.0;
@@ -319,10 +318,12 @@ function shortestPath(longval, latval)
 map.addControl(
     new mapboxgl.GeolocateControl({
       positionOptions: {
-      // When active the map will receive updates to the device's location as it changes.
+      // When active the map will receive updates to 
+      // the device's location as it changes.
       enableHighAccuracy: true
     },
-      // Draw an arrow next to the location dot to indicate which direction the device is heading.
+      // Draw an arrow next to the location dot to 
+      // indicate which direction the device is heading.
       trackUserLocation: true
     })
 )
